@@ -9,6 +9,7 @@ void Callcenter::printMainMenu() {
               << "1: Termin anlegen" << std::endl
               << "2: Termin loeschen" << std::endl
               << "3: Arztpraxis anlegen" << std::endl
+              << "4: Terminuebersicht" << std::endl
               << "0: Programm beenden" << std::endl;
 }
 
@@ -71,7 +72,7 @@ void Callcenter::dialog() {
                 Impfstoff impfstoff;
                 int i;
                 std::cin >> i;
-                impfstoff = (Impfstoff)i;
+                impfstoff = (Impfstoff)(i-1);
 
                 bool success = false;
                 while(!success) {
@@ -153,6 +154,20 @@ void Callcenter::dialog() {
 
                 praxisListe.push_back(new Arztpraxis(praxisName));
                 std::cout << "\tPraxis erfolgreich gespeichert." << std::endl;
+
+                printMainMenu();
+                break;
+            }
+
+            // -------- Terminübersicht --------
+            case '4': {
+                if(praxisListe.size() == 0) {
+                    std::cout << "\tNoch keine Praxis vorhanden" << std::endl;
+                }
+
+                for(Arztpraxis* praxis: praxisListe) {
+                    std::cout << praxis->getTerminuebersicht() << std::endl;
+                }
 
                 printMainMenu();
                 break;
