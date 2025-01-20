@@ -1,8 +1,9 @@
 #include "termin.h"
 
-Termin::Termin(std::string datumUhrzeit, std::string patient) {
+Termin::Termin(std::string datumUhrzeit, std::string patient, Impfstoff impfstoff) {
     this->datumUhrzeit = datumUhrzeit;
     this->patient = patient;
+    this->impfstoff = impfstoff;
     this->geloescht = false;
 }
 

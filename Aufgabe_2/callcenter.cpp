@@ -27,22 +27,51 @@ void Callcenter::dialog() {
         switch(c) {
             // -------- Termin anlegen --------
             case '1': {
+                std::cout << "\tPatienten Name: ";
+                std::string patienName;
+                std::cin >> patienName;
+
+                std::cout << "\tImpfstoff (1: Biontech, 2: Moderna, 3: Astra Zeneca, 4: Johnson&Johnson: ";
+                Impfstoff impfstoff;
+                int i;
+                std::cin >> i;
+                impfstoff = (Impfstoff)i;
+
                 bool success = false;
                 while(!success) {
-                    std::cout << "\tPatienten Name: ";
-                    std::string patienName;
-                    std::cin >> patienName;
+                    // ersten Termin abfragen
+                    if(impfstoff == Impfstoff::Biontech || impfstoff == Impfstoff::Moderna || impfstoff == Impfstoff::AstraZeneca) {
+                        std::cout << "\tDatum und Uhrzeit 1/2 \"dd.mm.yyyy:hhmm: ";
+                    }
+                    else {
+                        std::cout << "\tDatum und Uhrzeit 1/1 \"dd.mm.yyyy:hhmm: ";
+                    }
 
-                    std::cout << "\tDatum und Uhrzeit \"dd.mm.yyyy:hhmm: ";
-                    std::string uhrzeitDatum;
-                    std::cin >> uhrzeitDatum;
+                    std::string zeitDatum;
+                    std::cin >> zeitDatum;
 
-                    success = arztpraxis.terminAnlegen(patienName, uhrzeitDatum);
+                    success = arztpraxis.terminAnlegen(patienName, zeitDatum, impfstoff);
                     if(!success) {
                         std::cout << "\tDer Termin ist schon belegt. Versuche es erneut" << std::endl;
                     }
                 }
                 std::cout << "\tTermin erfolgreich gespeichert." << std::endl;
+
+                if(impfstoff == Impfstoff::Biontech || impfstoff == Impfstoff::Moderna || impfstoff == Impfstoff::AstraZeneca) {
+                    success = false;
+                    while(!success) {
+                        // zweiten Termin abfragen
+                        std::cout << "\tDatum und Uhrzeit 2/2 \"dd.mm.yyyy:hhmm: ";
+                        std::string zeitDatum;
+                        std::cin >> zeitDatum;
+
+                        success = arztpraxis.terminAnlegen(patienName, zeitDatum, impfstoff);
+                        if(!success) {
+                            std::cout << "\tDer Termin ist schon belegt. Versuche es erneut" << std::endl;
+                        }
+                    }
+                    std::cout << "\tTermin erfolgreich gespeichert." << std::endl;
+                }
 
                 printMainMenu();
                 break;

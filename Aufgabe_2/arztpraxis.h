@@ -11,7 +11,7 @@ private:
     std::vector<Termin> terminListe;
 public:
     Arztpraxis();
-    bool terminAnlegen(std::string patient, std::string datumUhrzeit);
+    bool terminAnlegen(std::string patient, std::string datumUhrzeit, Impfstoff impfstoff);
     bool terminLoeschen(std::string patient);
 };
 

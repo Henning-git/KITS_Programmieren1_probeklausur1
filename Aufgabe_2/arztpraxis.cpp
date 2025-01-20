@@ -3,7 +3,7 @@
 
 Arztpraxis::Arztpraxis() {}
 
-bool Arztpraxis::terminAnlegen(std::string patient, std::string datumUhrzeit) {
+bool Arztpraxis::terminAnlegen(std::string patient, std::string datumUhrzeit, Impfstoff impfstoff) {
     // verify free timeslot
     for(Termin& termin: terminListe) {
         if(termin.getGeloescht() == false && termin.getDatumUhrzeit() == datumUhrzeit) {
@@ -12,7 +12,7 @@ bool Arztpraxis::terminAnlegen(std::string patient, std::string datumUhrzeit) {
     }
 
     // add termin to list
-    Termin newTermin(datumUhrzeit, patient);
+    Termin newTermin(datumUhrzeit, patient, impfstoff);
     terminListe.push_back(newTermin);
 
     return true;
@@ -20,12 +20,13 @@ bool Arztpraxis::terminAnlegen(std::string patient, std::string datumUhrzeit) {
 
 bool Arztpraxis::terminLoeschen(std::string patient) {
     // find termin to be deleted
+    bool success = false;
     for(Termin& termin: terminListe) {
         if(termin.getGeloescht() == false && termin.getPatient() == patient) {
             termin.setGeloescht(true);
-            return true;
+            success = true;
         }
     }
 
-    return false;
+    return success;
 }
