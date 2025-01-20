@@ -4,4 +4,12 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        main.cpp
+        arztpraxis.cpp \
+        callcenter.cpp \
+        main.cpp \
+        termin.cpp
+
+HEADERS += \
+    arztpraxis.h \
+    callcenter.h \
+    termin.h

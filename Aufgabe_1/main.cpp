@@ -1,8 +1,9 @@
 #include <iostream>
-
-using namespace std;
+#include "callcenter.h"
 
 int main() {
-    cout << "Hello World!" << endl;
+    Callcenter callcenter;
+    callcenter.dialog();
+
     return 0;
 }
